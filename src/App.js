@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState('');
+
+  // این کار برای بارگذاری تسک‌ها از LocalStorage هنگام راه‌اندازی صفحه است
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+    if (storedTasks) {
+      setTasks(storedTasks);
+    }
+  }, []);
+
+  // این کار برای ذخیره کردن تسک‌ها در LocalStorage هر بار که تغییر می‌کنه
+  useEffect(() => {
+    if (tasks.length > 0) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+  }, [tasks]);
 
   const addTask = (e) => {
     e.preventDefault();
