@@ -12,6 +12,11 @@ function App() {
     setInput('');
   };
 
+  const deleteTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
+  };
+
   return (
     <div className="App">
       <h1>📝 Todo App</h1>
@@ -26,7 +31,10 @@ function App() {
       </form>
       <ul>
         {tasks.map((task, index) => (
-          <li key={index}>✅ {task}</li>
+          <li key={index}>
+            ✅ {task}
+            <button onClick={() => deleteTask(index)}>حذف</button>
+          </li>
         ))}
       </ul>
     </div>
