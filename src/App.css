@@ -1,103 +1,128 @@
-/* استایل کلی برای اپلیکیشن */
 .App {
-  background-color: #f4f6f9;
-  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Arial', sans-serif;
-  color: #333;
+  height: 100vh; /* ارتفاع کل صفحه */
   padding: 20px;
+  box-sizing: border-box;
 }
 
-/* کادر دور اپلیکیشن */
 .app-container {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
   width: 100%;
-  max-width: 600px;
-  padding: 30px;
-}
-
-/* عنوان */
-h1 {
-  color: #4CAF50;
-  margin-bottom: 20px;
-  font-size: 2.5rem;
-  text-align: center;
-}
-
-/* فرم ورود تسک */
-form {
+  max-width: 400px; /* حداکثر عرض برای کادر */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 20px; /* فاصله از پایین */
 }
 
 input {
-  padding: 10px;
-  font-size: 16px;
-  width: 250px;
-  border: 2px solid #4CAF50;
-  border-radius: 5px;
-  margin-right: 10px;
-  outline: none;
-  transition: all 0.3s ease;
+  width: calc(100% - 90px); /* تنظیم عرض ورودی */
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
 
-input:focus {
-  border-color: #45a049;
+select {
+  padding: 8px;
+  margin-left: 10px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 90px; /* عرض مناسب برای select */
 }
 
 button {
-  padding: 10px 20px;
+  padding: 8px 16px;
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  width: 100%;
+  margin-top: 10px;
 }
 
 button:hover {
   background-color: #45a049;
 }
 
-/* لیست تسک‌ها */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.filters button {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background-color: #ddd;
+}
+
 ul {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
-  width: 100%;
+  margin: 0;
 }
 
 li {
-  background-color: #ffffff;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  font-size: 18px;
+  font-size: 0.9rem; /* اندازه مناسب برای نمایش تسک‌ها */
 }
 
-button {
+li button {
   margin-left: 10px;
-}
-
-button:focus {
-  outline: none;
-}
-
-/* دکمه حذف و ویرایش */
-button {
-  padding: 8px 12px;
-  font-size: 14px;
-}
-
-button:hover {
+  padding: 5px 10px;
+  font-size: 0.8rem;
   background-color: #f44336;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+li button:hover {
+  background-color: #d32f2f;
+}
+
+@media (max-width: 600px) {
+  .app-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  input, select, button {
+    font-size: 0.8rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
 }

@@ -4,6 +4,7 @@ import './App.css';
 function App() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState('');
+  const [priority, setPriority] = useState('medium'); // اولویت تسک
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingText, setEditingText] = useState('');
   const [statusFilter, setStatusFilter] = useState('all'); // فیلتر وضعیت تسک‌ها
@@ -23,11 +24,20 @@ function App() {
     }
   }, [tasks]);
 
+  // افزودن تسک جدید
   const addTask = (e) => {
     e.preventDefault();
     if (input.trim() === '') return;
-    setTasks([...tasks, { text: input, completed: false }]);
+
+    // گرفتن تاریخ و زمان فعلی به فرمت YYYY-MM-DD
+    const currentDate = new Date().toISOString().split('T')[0]; // تاریخ جاری بدون ساعت
+
+    setTasks([
+      ...tasks,
+      { text: input, completed: false, priority: priority, dueDate: currentDate },
+    ]);
     setInput('');
+    setPriority('medium');
   };
 
   const deleteTask = (index) => {
@@ -64,6 +74,12 @@ function App() {
     if (statusFilter === 'incomplete') return !task.completed;
   });
 
+  // مرتب‌سازی تسک‌ها بر اساس اولویت
+  const sortedTasks = filteredTasks.sort((a, b) => {
+    const priorityOrder = { high: 1, medium: 2, low: 3 };
+    return priorityOrder[a.priority] - priorityOrder[b.priority];
+  });
+
   return (
     <div className="App">
       <div className="app-container">
@@ -75,6 +91,12 @@ function App() {
             value={editingIndex === null ? input : editingText}
             onChange={(e) => (editingIndex === null ? setInput(e.target.value) : setEditingText(e.target.value))}
           />
+          {/* انتخاب اولویت */}
+          <select onChange={(e) => setPriority(e.target.value)} value={priority}>
+            <option value="high">بالا</option>
+            <option value="medium">متوسط</option>
+            <option value="low">پایین</option>
+          </select>
           <button type="submit">{editingIndex === null ? 'افزودن' : 'ذخیره تغییرات'}</button>
         </form>
 
@@ -86,9 +108,9 @@ function App() {
         </div>
 
         <ul>
-          {filteredTasks.map((task, index) => (
+          {sortedTasks.map((task, index) => (
             <li key={index} style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
-              ✅ {task.text}
+              ✅ {task.text} - اولویت: {task.priority} - تاریخ موعد: {task.dueDate}
               <button onClick={() => editTask(index)}>ویرایش</button>
               <button onClick={() => toggleCompletion(index)}>
                 {task.completed ? 'بازگشت به حالت اولیه' : 'تکمیل شده'}
